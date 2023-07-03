@@ -1,0 +1,63 @@
+--Create a table to show famous artists and their stats
+
+CREATE TABLE artists (id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    stage_name TEXT,
+    real_name TEXT,
+    origin TEXT,
+    age INTEGER);
+    
+INSERT INTO artists ("stage_name", "real_name", "origin", "age") VALUES ("wonderland", "alice", "germany", "20");
+INSERT INTO artists ("stage_name", "real_name", "origin", "age") VALUES ("spice", "grace", "jamaica", "35");
+INSERT INTO artists ("stage_name", "real_name", "origin", "age") VALUES ("rihanna", "robin", "barbados", "30");
+INSERT INTO artists ("stage_name", "real_name", "origin", "age") VALUES ("drake", "aubrey", "canada", "38");
+INSERT INTO artists ("stage_name", "real_name", "origin", "age") VALUES ("hearts", "piper", "uk", "50");
+INSERT INTO artists ("stage_name", "real_name", "origin", "age") VALUES ("rabit", "peter", "asia", "19");
+
+CREATE TABLE songs (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    artists_id INTEGER,
+    title TEXT,
+    release_year INTEGER,
+    streams INTEGER);
+    
+INSERT INTO songs ("artists_id", "title", "release_year", "streams") VALUES ("1", "adventures", "2011", "1000");
+INSERT INTO songs ("artists_id", "title", "release_year", "streams") VALUES ("2", "win", "2020", "600");
+INSERT INTO songs ("artists_id", "title", "release_year", "streams") VALUES ("3", "umbrella", "2010", "6000");
+INSERT INTO songs ("artists_id", "title", "release_year", "streams") VALUES ("4", "jungle", "2020", "5000");
+INSERT INTO songs ("artists_id", "title", "release_year", "streams") VALUES ("5", "love", "1990", "600");
+INSERT INTO songs ("artists_id", "title", "release_year", "streams") VALUES ("2", "carrots", "2023", "200");
+
+CREATE TABLE awards (id INTEGER PRIMARY KEY,
+artists_id TEXT,
+award_type TEXT);
+
+INSERT INTO awards ("artists_id", "award_type") VALUES ( "3", "grammy");
+INSERT INTO awards ("artists_id", "award_type") VALUES ("4", "grammy");
+
+--Use join showing artists name and age next to song title
+
+SELECT a.stage_name, a.real_name, a.age, s.title
+FROM artists a
+JOIN songs s
+ON a.id=s.artists_id;
+
+--Use join showing artists name, age and song title with less than 700 streams
+
+SELECT a.stage_name, a.real_name, a.age, s.title, s. streams
+FROM artists a
+JOIN songs s
+ON a.id=s.artists_id
+WHERE streams <700;
+
+--Use join to show artists who have won awards
+
+SELECT a.stage_name, a.real_name, b.award_type
+FROM artists a 
+LEFT OUTER JOIN awards b
+ON a.id=b.artists_id;
+
+
+
+
+
+
+
