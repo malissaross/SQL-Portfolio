@@ -1,0 +1,35 @@
+/* This project utilized data from the Netflix database stored at http://sqlfiddle.com/#!17/7dae0/16/0 *\
+
+--Show the netflix type, title, and release date next to the director. Arrange from oldest to latest release date
+SELECT nt.type, nt.title, nt.release_year, np.director
+FROM "netflix_titles_info" nt
+JOIN "netflix_people" np
+ON nt.show_id=np.show_id
+ORDER BY release_year asc;
+
+--How many movie titles are there in the database? (movies only, not tv shows)
+SELECT count (*) 
+FROM "netflix_titles_info"
+WHERE type = 'Movie';
+
+--When was the most recent batch of tv shows and/or movies added to the database?
+SELECT max(date(date_added)) 
+FROM "netflix_titles_info"
+
+--List all the movies and tv shows in alphabetical order
+SELECT title FROM "netflix_titles_info"
+ORDER BY title asc;
+
+--Who was the Director for the movie The Starling?
+SELECT np.director
+FROM "netflix_titles_info" nt
+JOIN "netflix_people" np
+ON nt.show_id = np.show_id
+WHERE nt.title = 'The Starling';
+
+--What is the oldest movie in the database and what year was it made?
+SELECT title, release_year
+FROM "netflix_titles_info"
+WHERE type='Movie'
+ORDER BY release_year asc
+LIMIT 1;
